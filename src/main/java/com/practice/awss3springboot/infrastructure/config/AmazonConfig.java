@@ -1,4 +1,4 @@
-package com.practice.awss3springboot.config;
+package com.practice.awss3springboot.infrastructure.config;
 
 import com.amazonaws.auth.AWSCredentials;
 import com.amazonaws.auth.AWSStaticCredentialsProvider;
@@ -12,10 +12,10 @@ import org.springframework.context.annotation.Configuration;
 @Configuration
 public class AmazonConfig {
 
-  @Value("${aplication.aws.s3.access-key}")
+  @Value("${application.aws.s3.access-key}")
   private String accessKey;
 
-  @Value("${aplication.aws.s3.secret-key}")
+  @Value("${application.aws.s3.secret-key}")
   private String secretKey;
 
   @Bean
