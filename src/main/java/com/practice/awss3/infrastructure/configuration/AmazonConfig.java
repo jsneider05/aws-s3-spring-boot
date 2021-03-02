@@ -1,4 +1,4 @@
-package com.practice.awss3springboot.infrastructure.config;
+package com.practice.awss3.infrastructure.configuration;
 
 import com.amazonaws.auth.AWSCredentials;
 import com.amazonaws.auth.AWSStaticCredentialsProvider;
@@ -12,11 +12,14 @@ import org.springframework.context.annotation.Configuration;
 @Configuration
 public class AmazonConfig {
 
-  @Value("${application.aws.s3.access-key}")
+  @Value("${application.cloud.aws-s3.access-key}")
   private String accessKey;
 
-  @Value("${application.aws.s3.secret-key}")
+  @Value("${application.cloud.aws-s3.secret-key}")
   private String secretKey;
+
+  @Value("${application.cloud.aws-s3.client-region}")
+  private String clientRegion;
 
   @Bean
   public AmazonS3 s3() {
@@ -26,6 +29,7 @@ public class AmazonConfig {
     );
     return AmazonS3ClientBuilder
         .standard()
+        .withRegion(clientRegion)
         .withCredentials(new AWSStaticCredentialsProvider(awsCredentials))
         .build();
   }

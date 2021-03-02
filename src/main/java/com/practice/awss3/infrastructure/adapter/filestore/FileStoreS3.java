@@ -1,4 +1,4 @@
-package com.practice.awss3springboot.infrastructure.adapter;
+package com.practice.awss3.infrastructure.adapter.filestore;
 
 import com.amazonaws.AmazonServiceException;
 import com.amazonaws.services.s3.AmazonS3;
@@ -11,7 +11,7 @@ import org.springframework.stereotype.Service;
 
 @RequiredArgsConstructor
 @Service
-public class FileStore {
+public class FileStoreS3 {
 
   private final AmazonS3 s3;
 

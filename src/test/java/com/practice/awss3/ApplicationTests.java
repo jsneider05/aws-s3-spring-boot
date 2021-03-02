@@ -1,10 +1,10 @@
-package com.practice.awss3springboot;
+package com.practice.awss3;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 
 @SpringBootTest
-class AwsS3SpringBootApplicationTests {
+class ApplicationTests {
 
 	@Test
 	void contextLoads() {
