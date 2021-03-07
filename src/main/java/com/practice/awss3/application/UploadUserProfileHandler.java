@@ -13,7 +13,7 @@ public class UploadUserProfileHandler {
   private final UploadUserProfileService service;
 
   public void execute(UUID userProfileId, MultipartFile file) {
-
+    this.service.execute(userProfileId, file);
   }
 
 }

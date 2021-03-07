@@ -1,6 +1,7 @@
 package com.practice.awss3.infrastructure.controller;
 
 import com.practice.awss3.application.ObtainUserProfileHandler;
+import com.practice.awss3.application.UploadUserProfileHandler;
 import com.practice.awss3.domain.model.UserProfile;
 import java.util.List;
 import java.util.UUID;
@@ -22,6 +23,7 @@ import org.springframework.web.multipart.MultipartFile;
 public class UserProfileController {
 
   private final ObtainUserProfileHandler obtainUserProfileHandler;
+  private final UploadUserProfileHandler uploadUserProfileHandler;
 
   @GetMapping
   public List<UserProfile> getUserProfile() {
@@ -35,7 +37,7 @@ public class UserProfileController {
   )
   public void uploadUserProfileImage(@PathVariable("userProfileId") UUID userProfileId,
       @RequestParam("file") MultipartFile file) {
-
+    this.uploadUserProfileHandler.execute(userProfileId, file);
   }
 
 }
