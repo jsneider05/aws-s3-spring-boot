@@ -1,6 +1,7 @@
 package com.practice.awss3.infrastructure.adapter.datastore.dao;
 
 import com.practice.awss3.domain.model.UserProfile;
+import com.practice.awss3.domain.model.exception.NoDataException;
 import com.practice.awss3.domain.port.datastore.dao.UserProfileDao;
 import com.practice.awss3.infrastructure.adapter.datastore.UserProfileFakeDataStore;
 import java.util.List;
@@ -22,7 +23,7 @@ public class UserProfileFakeDao implements UserProfileDao {
   @Override
   public UserProfile getUserProfileById(UUID userProfileId) {
     return this.dataStore.getUserProfile(userProfileId)
-        .orElseThrow(() -> new IllegalStateException(String.format("User profile %s not found",
+        .orElseThrow(() -> new NoDataException(String.format("User profile %s not found",
             userProfileId)));
   }
 

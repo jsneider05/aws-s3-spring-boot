@@ -3,6 +3,7 @@ package com.practice.awss3.infrastructure.adapter.filestore;
 import com.amazonaws.AmazonServiceException;
 import com.amazonaws.services.s3.AmazonS3;
 import com.amazonaws.services.s3.model.ObjectMetadata;
+import com.practice.awss3.domain.model.exception.ExternalApiException;
 import com.practice.awss3.domain.port.filestore.FileStore;
 import java.io.InputStream;
 import java.util.Map;
@@ -30,7 +31,7 @@ public class FileStoreS3 implements FileStore {
     try {
       s3.putObject(path, filename, inputStream, metadata);
     } catch (AmazonServiceException e) {
-      throw new IllegalStateException("Failed to store file to s3", e);
+      throw new ExternalApiException(String.format("Failed to store file to s3 %s", e));
     }
   }
 

@@ -1,4 +1,4 @@
-package com.practice.awss3.infrastructure.configuration;
+package com.practice.awss3.infrastructure.configuration.aws;
 
 import com.amazonaws.auth.AWSCredentials;
 import com.amazonaws.auth.AWSStaticCredentialsProvider;
