@@ -13,7 +13,7 @@ public class ObtainUserProfileService {
   private final UserProfileDao userProfileDao;
 
   public List<UserProfile> getUserProfile() {
-    return userProfileDao.getUserProfile();
+    return userProfileDao.getUserProfiles();
   }
 
 }
