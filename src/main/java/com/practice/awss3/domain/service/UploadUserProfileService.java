@@ -17,7 +17,6 @@ import java.util.function.Function;
 import java.util.function.Supplier;
 import java.util.stream.Stream;
 import lombok.RequiredArgsConstructor;
-import org.apache.http.entity.ContentType;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
@@ -26,33 +25,36 @@ import org.springframework.web.multipart.MultipartFile;
 @Service
 public class UploadUserProfileService {
 
-  @Value("application.cloud.aws-s3.bucket-name")
+  @Value("${application.cloud.aws-s3.bucket-name}")
   private String bucketName;
 
   private final UserProfileDao userProfileDao;
   private final FileStore fileStore;
 
   public void execute(UUID userProfileId, MultipartFile file) {
-    // TODO: 1. Check if image is not empty
+    // 1. Check if image is not empty
     checkEmptyImage.accept(file);
 
-    // TODO: 2. Check if file is an image
+    // 2. Check if file is an image
     checkFileImageType.accept(file);
 
-    // TODO: 3. The user exists in our database
+    // 3. The user exists in our database
     UserProfile user = userProfileDao.getUserProfileById(userProfileId);
 
-    // TODO: 4. Grab some metadata from file if any
+    // 4. Grab some metadata from file if any
     Optional<Map<String, String>> metadata = extractMetadata.apply(file);
 
-    // TODO: 5. Store the image in s3 and update database with s3 image link
-    String filename = String.format("%s-%s", file.getName(), UUID.randomUUID());
+    // 5. Store the image in s3 and update database with s3 image link
+    String filepath = String.format("%s/%s", bucketName, user.getUserProfileId());
+    String filename = String.format("%s-%s", file.getOriginalFilename(), UUID.randomUUID());
 
     try {
-      fileStore.save(user.getFilePath(), filename, metadata, file.getInputStream());
+      fileStore.save(filepath, filename, metadata, file.getInputStream());
     } catch (IOException e) {
       throw new InternalProcessException(String.valueOf(e));
     }
+    // TODO: Implement update image link
+    user.setUserImageLink(filename);
   }
 
   private final Consumer<MultipartFile> checkEmptyImage = file -> {
@@ -61,12 +63,12 @@ public class UploadUserProfileService {
     }
   };
 
-  private final Supplier<Stream<ContentType>> imageContentTypeAllowed = () ->
-      Stream.of(IMAGE_JPEG, IMAGE_PNG, IMAGE_GIF);
+  private final Supplier<Stream<String>> imageContentTypeAllowed = () ->
+      Stream.of(IMAGE_JPEG.getMimeType(), IMAGE_PNG.getMimeType(), IMAGE_GIF.getMimeType());
 
   private final Consumer<MultipartFile> checkFileImageType = file -> {
     if (this.imageContentTypeAllowed.get()
-        .noneMatch(contentType -> contentType.toString().equals(file.getContentType()))) {
+        .noneMatch(contentType -> contentType.equals(file.getContentType()))) {
       throw new InvalidValueException("File must be an image [" + file.getContentType() + "]");
     }
   };
