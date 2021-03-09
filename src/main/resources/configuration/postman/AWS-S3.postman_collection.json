@@ -1,0 +1,80 @@
+{
+	"info": {
+		"_postman_id": "8b20a838-edd3-44d2-8745-b07ebd4c24e6",
+		"name": "AWS-S3",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Get User Profile",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							"var jsonReponse = JSON.parse(responseBody);\r",
+							"postman.setEnvironmentVariable(\"user-profile-id\", jsonReponse[0].userProfileId);\r",
+							"postman.setEnvironmentVariable(\"user-name\", jsonReponse[0].userName);"
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{host}}{{api-version}}/user-profile",
+					"host": [
+						"{{host}}{{api-version}}"
+					],
+					"path": [
+						"user-profile"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Upload User Profile Image",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "POST",
+				"header": [],
+				"body": {
+					"mode": "formdata",
+					"formdata": [
+						{
+							"key": "file",
+							"type": "file",
+							"src": "uXebLXaQP/antoniojunior.jpg"
+						}
+					]
+				},
+				"url": {
+					"raw": "{{host}}{{api-version}}/user-profile/{{user-profile-id}}/image/upload",
+					"host": [
+						"{{host}}{{api-version}}"
+					],
+					"path": [
+						"user-profile",
+						"{{user-profile-id}}",
+						"image",
+						"upload"
+					]
+				}
+			},
+			"response": []
+		}
+	]
+}
