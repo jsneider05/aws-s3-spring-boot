@@ -23,7 +23,7 @@ import org.springframework.web.multipart.MultipartFile;
 
 @RequiredArgsConstructor
 @Service
-public class UploadUserProfileService {
+public class UploadUserProfileImageService {
 
   @Value("${application.cloud.aws-s3.bucket-name}")
   private String bucketName;
@@ -54,7 +54,7 @@ public class UploadUserProfileService {
       throw new InternalProcessException(String.valueOf(e));
     }
     // TODO: Implement update image link
-    user.setUserImageLink(filename);
+    user.setUserImageKey(filename);
   }
 
   private final Consumer<MultipartFile> checkEmptyImage = file -> {

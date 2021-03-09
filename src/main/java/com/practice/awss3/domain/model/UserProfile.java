@@ -13,10 +13,10 @@ public class UserProfile {
 
   private final UUID userProfileId;
   private final String userName;
-  private String userImageLink;
+  private String userImageKey;
 
-  public Optional<String> getUserImageLink() {
-    return Optional.ofNullable(userImageLink);
+  public Optional<String> getUserImageKey() {
+    return Optional.ofNullable(userImageKey);
   }
 
 }

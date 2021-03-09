@@ -9,4 +9,6 @@ public interface FileStore {
   void save(String path, String filename, Optional<Map<String, String>> optionalMetadata,
       InputStream inputStream);
 
+  byte[] download(String path, String key);
+
 }
