@@ -3,6 +3,7 @@ package com.practice.awss3.domain.service;
 import static org.apache.http.entity.ContentType.*;
 
 import com.practice.awss3.domain.model.UserProfile;
+import com.practice.awss3.domain.model.UserProfileBucket;
 import com.practice.awss3.domain.model.exception.InternalProcessException;
 import com.practice.awss3.domain.model.exception.InvalidValueException;
 import com.practice.awss3.domain.model.exception.RequiredValueException;
@@ -17,7 +18,6 @@ import java.util.function.Function;
 import java.util.function.Supplier;
 import java.util.stream.Stream;
 import lombok.RequiredArgsConstructor;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -25,11 +25,9 @@ import org.springframework.web.multipart.MultipartFile;
 @Service
 public class UploadUserProfileImageService {
 
-  @Value("${application.cloud.aws-s3.bucket-name}")
-  private String bucketName;
-
   private final UserProfileDao userProfileDao;
   private final FileStore fileStore;
+  private final UserProfileBucket bucket;
 
   public void execute(UUID userProfileId, MultipartFile file) {
     // 1. Check if image is not empty
@@ -45,7 +43,7 @@ public class UploadUserProfileImageService {
     Optional<Map<String, String>> metadata = extractMetadata.apply(file);
 
     // 5. Store the image in s3 and update database with s3 image link
-    String filepath = String.format("%s/%s", bucketName, user.getUserProfileId());
+    String filepath = user.getImagePath(bucket.getBucketName());
     String filename = String.format("%s-%s", file.getOriginalFilename(), UUID.randomUUID());
 
     try {

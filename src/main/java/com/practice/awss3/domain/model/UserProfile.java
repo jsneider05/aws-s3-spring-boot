@@ -19,4 +19,8 @@ public class UserProfile {
     return Optional.ofNullable(userImageKey);
   }
 
+  public String getImagePath(String bucketName) {
+    return String.format("%s/%s", bucketName, userProfileId);
+  }
+
 }
