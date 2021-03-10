@@ -12,10 +12,21 @@ spring:
     username: sa
     password:
   jpa:
+    generate-ddl: false
     database-platform: org.hibernate.dialect.H2Dialect
     show-sql: true
     hibernate:
-      ddl-auto: update
+      ddl-auto: none
+  flyway:
+    enabled: true
+    url: jdbc:h2:mem:awss3
+    schemas: awss3
+    user: sa
+    password:
+    locations: filesystem:src/main/resources/db/migration/h2
+    table: bc_schema_version
+    out-of-order: true
+    validate-on-migrate: true
 
 application:
   cloud:

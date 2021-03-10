@@ -56,6 +56,13 @@ mvn spring-boot:run
 ./mvnw spring-boot:run
 ```
 
+## H2 Database
+
+|Proyecto|URL|
+|--------|---|
+|H2|[http://localhost:8085/api/h2-console](http://localhost:8085/api/h2-console)|
+
+
 ## Swagger UI
 
 |Proyecto|URL|

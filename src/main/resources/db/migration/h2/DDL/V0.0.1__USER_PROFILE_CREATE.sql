@@ -1,0 +1,6 @@
+CREATE TABLE "PUBLIC"."USER_PROFILE"
+(
+    "ID"        UUID DEFAULT RANDOM_UUID() NOT NULL,
+    "IMAGE_KEY" TEXT,
+    "NAME"      VARCHAR(255)               NOT NULL
+);
