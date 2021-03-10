@@ -75,6 +75,37 @@
 				}
 			},
 			"response": []
+		},
+		{
+			"name": "Download User Profile Image",
+			"event": [
+				{
+					"listen": "test",
+					"script": {
+						"exec": [
+							""
+						],
+						"type": "text/javascript"
+					}
+				}
+			],
+			"request": {
+				"method": "GET",
+				"header": [],
+				"url": {
+					"raw": "{{host}}{{api-version}}/user-profile/{{user-profile-id}}/image/download",
+					"host": [
+						"{{host}}{{api-version}}"
+					],
+					"path": [
+						"user-profile",
+						"{{user-profile-id}}",
+						"image",
+						"download"
+					]
+				}
+			},
+			"response": []
 		}
 	]
 }
