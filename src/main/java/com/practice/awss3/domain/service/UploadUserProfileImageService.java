@@ -29,7 +29,7 @@ public class UploadUserProfileImageService {
   private final FileStore fileStore;
   private final UserProfileBucket bucket;
 
-  public void execute(UUID userProfileId, MultipartFile file) {
+  public String execute(UUID userProfileId, MultipartFile file) {
     // 1. Check if image is not empty
     checkEmptyImage.accept(file);
 
@@ -51,8 +51,7 @@ public class UploadUserProfileImageService {
     } catch (IOException e) {
       throw new InternalProcessException(String.valueOf(e));
     }
-    // TODO: Implement update image link
-    user.setUserImageKey(filename);
+    return filename;
   }
 
   private final Consumer<MultipartFile> checkEmptyImage = file -> {
